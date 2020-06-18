@@ -3,6 +3,48 @@
 import random
 import sys
 
+
+class Data:
+  AGRICULTURE = ['Agriculture', 'Agriculture']
+  ARISTOTE = ['Aristote', 'Aristotle']
+  BILKIS = ['Bilkis', 'Bilkis']
+  BLEU = ['Bleu', 'Blue']
+  CESAR = ['César', 'Ceasar']
+  CINQ_POINTS = ['5 points', '5 points']
+  CLEOPATRE = ['Cléopâtre', 'Cleopatra']
+  DROITE_A_GAUCHE = ['Droige à gauche ==>', 'Right to left ==>']
+  ECONOMIE = ['Economie', 'Economy']
+  GAUCHE_A_DROITE = ['Gauche à droite ==>', 'Left to right ==>']
+  GRIS = ['Gris', 'Grey']
+  HAMMURABI = ['Hammurabi', 'Hammurabi']
+  JAUNE = ['Jaune', 'Yellow']
+  LOI = ['Loi', 'Law']
+  MARRON = ['Marron', 'Maroon']
+  MATHEMATIQUES = ['Mathématiques', 'Mathematics']
+  NOUVELLE_PARTIE = ['Nouvelle partie !', 'New Game!']
+  LOI = ['Loi', 'Law']
+  REJOUER = ['Rejouer !', 'Replay!']
+  ROND = ['Rond', 'Round']
+  ROUGE = ['Rouge', 'Red']
+  STRATEGIE = ['Stratégie', 'Strategy']
+  TRIANGLE = ['Triangle', 'Triangle']
+  VERT = ['Vert', 'Green']
+  VIOLET = ['Violet', 'Purple']
+
+class Base:
+  def __init__(self, idx):
+    self.data = Data()
+    self.idx = idx
+
+  def __getattr__(self, key):
+    entry = getattr(self.data, key)
+    return entry[self.idx]
+
+Francais = Base(0)
+English = Base(1)
+
+String = English
+
 class Leader:
     def __init__(self, name_, colour_, symbols_, progres_):
         self.name = name_
@@ -11,13 +53,13 @@ class Leader:
         self.progres = progres_
     def print_self(self):
         print(self.name)
-        print(self.progres)
+        print(', '.join(self.progres))
 
-hammurabi = Leader('Hammurabi', 'Jaune', ['Rond'], 'Economie, 5 points')
-cleopatre = Leader('Cléopâtre', 'Bleu', ['Triangle'], 'Philosophie, Agriculture')
-cesar = Leader('César', 'Violet', [], 'Stratégie')
-aristote = Leader('Aristote', 'Gris', ['Rond'], 'Philosophie, Mathématiques')
-bilkis = Leader('Bilkis', 'Marron', ['Rond', 'Triangle'], 'Economie')
+hammurabi = Leader(String.HAMMURABI, String.JAUNE, String.ROND, [String.ECONOMIE, String.CINQ_POINTS])
+cleopatre = Leader(String.CLEOPATRE, String.BLEU, [String.TRIANGLE], [String.PHILOSOPHIE, String.AGRICULTURE])
+cesar = Leader(String.CESAR, String.VIOLET, [], [String.STRATEGIE])
+aristote = Leader(String.ARISTOTE, String.GRIS, [String.ROND], [String.LOI, String.MATHEMATIQUES])
+bilkis = Leader(String.BILKIS, String.MARRON, [String.ROND, String.TRIANGLE], [String.ECONOMIE])
 
 all_leaders = [hammurabi, cleopatre, cesar, aristote, bilkis]
 
@@ -38,13 +80,21 @@ class Decision:
         print("{}".format(self.arrow))
         print("{} {} {}".format(c1, c2, c3))
         if self.symbol in leader.symbols:
-            print('Rejouer !')
+            print(String.REJOUER)
 
 all_decisions = [
-    Decision('Gauche à droite ==>', 'Vert', 'Rouge', None, None), Decision('Gauche à droite ==>', 'Vert', 'Rouge', None, None), Decision('Gauche à droite ==>', 'Vert', 'Rouge', None, None),
-    Decision('Gauche à droite ==>', 'Rouge', 'Vert', None, None), Decision('Gauche à droite ==>', 'Rouge', 'Vert', None, None), Decision('Gauche à droite ==>', None, 'Rouge', 'Vert', 'Triangle'),
-    Decision('<== Droite à gauche', 'Vert', 'Rouge', None, None), Decision('<== Droite à gauche', 'Rouge', 'Vert', None, None), Decision('<== Droite à gauche', 'Rouge', 'Vert', None, None),
-    Decision('<== Droite à gauche', 'Rouge', 'Vert', None, None), Decision('<== Droite à gauche', 'Vert', 'Rouge', None, None), Decision('<== Droite à gauche', None, 'Vert', 'Rouge', 'Rond')
+    Decision(String.GAUCHE_A_DROITE, String.VERT, String.ROUGE, None, None),
+    Decision(String.GAUCHE_A_DROITE, String.VERT, String.ROUGE, None, None),
+    Decision(String.GAUCHE_A_DROITE, String.VERT, String.ROUGE, None, None),
+    Decision(String.GAUCHE_A_DROITE, String.ROUGE, String.VERT, None, None),
+    Decision(String.GAUCHE_A_DROITE, String.ROUGE, String.VERT, None, None),
+    Decision(String.GAUCHE_A_DROITE, None, String.ROUGE, String.VERT, String.TRIANGLE),
+    Decision(String.DROITE_A_GAUCHE, String.VERT, String.ROUGE, None, None),
+    Decision(String.DROITE_A_GAUCHE, String.ROUGE, String.VERT, None, None),
+    Decision(String.DROITE_A_GAUCHE, String.ROUGE, String.VERT, None, None),
+    Decision(String.DROITE_A_GAUCHE, String.ROUGE, String.VERT, None, None),
+    Decision(String.DROITE_A_GAUCHE, String.VERT, String.ROUGE, None, None),
+    Decision(String.DROITE_A_GAUCHE, None, String.VERT, String.ROUGE, String.ROND)
     ]
 
 class Game:
@@ -72,7 +122,7 @@ class Game:
 
 def main():
     print('7 WONDERS DUEL SOLO')
-    print('Nouvelle partie !')
+    print(String.NOUVELLE_PARTIE)
     print()
     g = Game()
     if len(sys.argv) > 1:
@@ -86,7 +136,7 @@ def main():
         elif line[0] == 'q':
             exit()
         else:
-            print('Nouvelle partie !')
+            print(String.NOUVELLE_PARTIE)
             print()
             g = Game()
             g.set_leader(line)
