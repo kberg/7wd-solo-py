@@ -12,7 +12,7 @@ class Data:
   CESAR = ['César', 'Ceasar']
   CINQ_POINTS = ['5 points', '5 points']
   CLEOPATRE = ['Cléopâtre', 'Cleopatra']
-  DROITE_A_GAUCHE = ['Droige à gauche ==>', 'Right to left ==>']
+  DROITE_A_GAUCHE = ['Droite à gauche <==', 'Right to left <==']
   ECONOMIE = ['Economie', 'Economy']
   GAUCHE_A_DROITE = ['Gauche à droite ==>', 'Left to right ==>']
   GRIS = ['Gris', 'Grey']
