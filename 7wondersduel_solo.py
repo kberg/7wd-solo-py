@@ -22,7 +22,7 @@ class Data:
   MARRON = ['Marron', 'Maroon']
   MATHEMATIQUES = ['Mathématiques', 'Mathematics']
   NOUVELLE_PARTIE = ['Nouvelle partie !', 'New Game!']
-  LOI = ['Loi', 'Law']
+  PHILOSOPHIE = ['Philosophie', 'Philosophy'] 
   REJOUER = ['Rejouer !', 'Replay!']
   ROND = ['Rond', 'Round']
   ROUGE = ['Rouge', 'Red']
@@ -43,7 +43,15 @@ class Base:
 Francais = Base(0)
 English = Base(1)
 
-String = English
+#default language
+String = Francais
+
+if len(sys.argv) > 1:
+  arg = sys.argv[1].upper()
+  if arg[0] == 'E':
+    String = English
+  if arg[0] == 'F':
+    String = Francais
 
 class Leader:
     def __init__(self, name_, colour_, symbols_, progres_):
@@ -58,7 +66,7 @@ class Leader:
 hammurabi = Leader(String.HAMMURABI, String.JAUNE, String.ROND, [String.ECONOMIE, String.CINQ_POINTS])
 cleopatre = Leader(String.CLEOPATRE, String.BLEU, [String.TRIANGLE], [String.PHILOSOPHIE, String.AGRICULTURE])
 cesar = Leader(String.CESAR, String.VIOLET, [], [String.STRATEGIE])
-aristote = Leader(String.ARISTOTE, String.GRIS, [String.ROND], [String.LOI, String.MATHEMATIQUES])
+aristote = Leader(String.ARISTOTE, String.GRIS, [String.ROND], [String.PHILOSOPHIE, String.MATHEMATIQUES])
 bilkis = Leader(String.BILKIS, String.MARRON, [String.ROND, String.TRIANGLE], [String.ECONOMIE])
 
 all_leaders = [hammurabi, cleopatre, cesar, aristote, bilkis]
